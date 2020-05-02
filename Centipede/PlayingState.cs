@@ -6,7 +6,11 @@ using System.Threading.Tasks;
 
 namespace Centipede
 {
-    class PlayingState
+    class PlayingState : GameObjectList
     {
+        public PlayingState()
+        {
+            this.Add(new SpriteGameObject("Background"));
+        }
     }
 }
