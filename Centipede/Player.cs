@@ -14,15 +14,15 @@ namespace Centipede
 
         public Player() : base("Player")
         {
-
+            position.X = GameEnvironment.Screen.X / 2;
+            position.Y = GameEnvironment.Screen.Y / 2;
         }
 
         public override void Reset()
         {
 
             base.Reset();
-            position.X = GameEnvironment.Screen.X;
-            position.Y = GameEnvironment.Screen.Y;
+
         }
 
         public override void HandleInput(InputHelper inputHelper)
