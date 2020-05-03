@@ -5,28 +5,45 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
 
 namespace Centipede
 {
     class Player : RotatingSpriteGameObject
     {
-       
+
         public Player() : base("Player")
         {
-            position.X = GameEnvironment.Screen.X / 2;
-            position.Y = GameEnvironment.Screen.Y / 2;
+
         }
 
         public override void Reset()
         {
 
             base.Reset();
+            position.X = GameEnvironment.Screen.X;
+            position.Y = GameEnvironment.Screen.Y;
         }
 
-        public override void Update(GameTime gameTime)
+        public override void HandleInput(InputHelper inputHelper)
         {
-            base.Update(gameTime);
+            base.HandleInput(inputHelper);
+            if (inputHelper.IsKeyDown(Keys.W))
+            {
+                position.Y = position.Y - 5;
+            }
+            if (inputHelper.IsKeyDown(Keys.S))
+            {
+                position.Y = position.Y + 5;
+            }
+            if (inputHelper.IsKeyDown(Keys.A))
+            {
+                position.X = position.X - 5;
+            }
+            if (inputHelper.IsKeyDown(Keys.D))
+            {
+                position.X = position.X + 5;
+            }
         }
-
     }
 }
