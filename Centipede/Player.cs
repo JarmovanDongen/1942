@@ -22,6 +22,10 @@ namespace Centipede
         {
 
             base.Reset();
+<<<<<<< HEAD
+
+=======
+>>>>>>> parent of 38f7d0d... Movement Added
         }
 
         public override void Update(GameTime gameTime)
