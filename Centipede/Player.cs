@@ -11,7 +11,7 @@ namespace Centipede
 {
     class Player : RotatingSpriteGameObject
     {
-       
+        public int SPEED = 5;
         public Player() : base("Player")
         {
             position.X = GameEnvironment.Screen.X / 2;
@@ -22,36 +22,44 @@ namespace Centipede
         {
 
             base.Reset();
-<<<<<<< HEAD
-
-=======
->>>>>>> parent of 38f7d0d... Movement Added
         }
 
-        public override void Update(GameTime gameTime)
-        {
-            base.Update(gameTime);
-        }
         public override void HandleInput(InputHelper inputHelper)
         {
             base.HandleInput(inputHelper);
 
             if (inputHelper.IsKeyDown(Keys.W))
             {
-                position.Y = position.Y - 5;
+                if(position.Y + sprite.Height > sprite.Height) 
+                { 
+                position.Y = position.Y - SPEED;
+                }
             }
             if (inputHelper.IsKeyDown(Keys.S))
             {
-                position.Y = position.Y + 5;
+                if(position.Y < GameEnvironment.Screen.Y - sprite.Height)
+                { 
+                position.Y = position.Y + SPEED;
+                }
             }
             if (inputHelper.IsKeyDown(Keys.A))
             {
-                position.X = position.X - 5;
+                if (position.X + sprite.Width > sprite.Width)
+                {
+                position.X = position.X - SPEED;
+                }
             }
             if (inputHelper.IsKeyDown(Keys.D))
             {
-                position.X = position.X + 5;
+                if (position.X  < GameEnvironment.Screen.X - sprite.Width)
+                {
+                    position.X = position.X + SPEED;
+                }
             }
+        }
+        public override void Update(GameTime gameTime)
+        {
+            base.Update(gameTime);
         }
     }
 }
