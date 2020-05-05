@@ -26,8 +26,12 @@ namespace Centipede
             screen = new Point(470, 550);
             ApplyResolutionSettings();
 
+            GameStateManager.AddGameState("Start", new StartScreen());
             GameStateManager.AddGameState("PlayingState", new PlayingState());
-            GameStateManager.SwitchTo("PlayingState");
+            GameStateManager.AddGameState("GameOver", new GameOverScreen());
+
+            GameStateManager.SwitchTo("Start");
+           
             // TODO: use this.Content to load your game content here
         }
         

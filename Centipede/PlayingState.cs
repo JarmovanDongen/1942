@@ -158,6 +158,21 @@ namespace Centipede
             {
                 Health.Remove(aObject);
             }
+
+            if(thePlayer.HEALTH <=0)
+            {
+                GameEnvironment.GameStateManager.SwitchTo("GameOver");
+                thePlayer.Reset();
+                Enemies.Reset();
+                Health.Reset();
+                score.getScore = 0;
+                thePlayer.HEALTH = 3;
+                for (int i = 0; i < _healtPoints; i++)
+                {
+                    Health.Add(new Health(new Vector2(150 - (i * _space), 10)));
+
+                }
+            }
         }
 
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
