@@ -11,16 +11,22 @@ namespace Centipede
 {
     class PlayingState : GameObjectList
     {
+        public int _space = 50;
+        public int _healtPoints = 3;
+        public bool _healthRemove = false;
+        public bool _hit = false;
         public int _scoreUp = 10;
         public int _frameCounter = 0;
         public const int _hpDown = 1;
         public const int _amountOfEnemies = 20;
-       // public List<Enemy> Enemies = new List<Enemy>();
+       
         Player thePlayer;
         Score score;
         GameObjectList Bullets = new GameObjectList();
         GameObjectList Enemies = new GameObjectList();
-        
+        GameObjectList Health = new GameObjectList();
+        GameObjectList KillList = new GameObjectList();
+
         public PlayingState()
         {
             this.Add(new SpriteGameObject("Background"));
@@ -30,7 +36,13 @@ namespace Centipede
             
             this.Add(thePlayer);
             this.Add(score);
+            this.Add(Health);
 
+            for (int i = 0; i < _healtPoints; i++)
+            {
+                Health.Add(new Health(new Vector2(150-(i*_space),10)));
+                
+            }
             for (int i = 0; i < _amountOfEnemies; i++)
             {
                 Enemies.Add(new Enemy());
@@ -106,20 +118,45 @@ namespace Centipede
             {
                 Enemies.Add(new Enemy());
             }
+
+            if(_hit == true) 
+            { 
+            _frameCounter++;
+            }
             foreach (Enemy EnemyHit in Enemies.Children)
             {
                 if (EnemyHit.CollidesWith(thePlayer))
                 {
-                    _frameCounter++;
-                    if(_frameCounter == 1) { 
-                    Console.WriteLine(thePlayer.HEALTH);
-                    thePlayer.HEALTH = thePlayer.HEALTH - _hpDown;
-                        if(_frameCounter == 120)
+                    if(_hit == false)
+                    {
+                        foreach (Health health in Health.Children)
                         {
-                            _frameCounter = 0;
+                            if (_healthRemove == false)
+                            {
+                                KillList.Add(health);
+                                _healthRemove = true;
+                            }
                         }
-                    }
+                        _healthRemove = false;
+                        _hit = true;
+                    
+                    thePlayer.HEALTH = thePlayer.HEALTH - _hpDown;
+                   }
                 }
+            }
+            if (_frameCounter >= 60)
+            {
+                _hit = false;
+                _frameCounter = 0;
+            }
+            foreach (Health health in Health.Children)
+            {
+
+            }
+
+            foreach (var aObject in KillList.Children)
+            {
+                Health.Remove(aObject);
             }
         }
 

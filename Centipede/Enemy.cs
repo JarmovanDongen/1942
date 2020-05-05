@@ -39,6 +39,7 @@ namespace Centipede
             if (position.Y < GameEnvironment.Screen.Y + sprite.Height)
             {
                 offScreen = true;
+
             }
         }
 
