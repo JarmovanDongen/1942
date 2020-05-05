@@ -18,7 +18,7 @@ namespace Centipede
         public int _scoreUp = 10;
         public int _frameCounter = 0;
         public const int _hpDown = 1;
-        public const int _amountOfEnemies = 20;
+        public const int _amountOfEnemies = 40;
        
         Player thePlayer;
         Score score;

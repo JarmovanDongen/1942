@@ -20,7 +20,7 @@ namespace Centipede
         public override void Reset()
         {
             position.X = GameEnvironment.Random.Next(0, GameEnvironment.Screen.X - sprite.Width);
-            position.Y = GameEnvironment.Random.Next(-1000, 0);
+            position.Y = GameEnvironment.Random.Next(-2000, 0);
 
             velocity.X = GameEnvironment.Random.Next(-3, 3);
             velocity.Y = GameEnvironment.Random.Next(1, 6);
