@@ -23,7 +23,7 @@ namespace Centipede
             position.Y = GameEnvironment.Random.Next(-1000, 0);
 
             velocity.X = GameEnvironment.Random.Next(-3, 3);
-            velocity.Y = GameEnvironment.Random.Next(1, 3);
+            velocity.Y = GameEnvironment.Random.Next(1, 6);
         }
 
         public override void Update(GameTime gameTime)
