@@ -12,7 +12,7 @@ namespace Centipede
     
     class Bullet : SpriteGameObject
     {
-        public const int BulletSpeed = 3;
+        public const int BulletSpeed = 6;
         public bool isFired;
         public bool offScreen;
         public Bullet(Vector2 startPosition) : base("Bullet") {
@@ -29,7 +29,7 @@ namespace Centipede
 
         public override void Update(GameTime gameTime)
         {
-            Console.WriteLine(velocity.Y + " " + position.Y);
+            
             if (isFired)
             {
                 position.Y -= velocity.Y;

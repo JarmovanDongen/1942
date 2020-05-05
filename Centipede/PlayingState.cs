@@ -11,22 +11,26 @@ namespace Centipede
 {
     class PlayingState : GameObjectList
     {
+
+        public const int _AmountOfEnemies = 20;
        // public List<Enemy> Enemies = new List<Enemy>();
         Player thePlayer;
-        Bullet theBullet;
 
         GameObjectList Bullets = new GameObjectList();
+        GameObjectList Enemies = new GameObjectList();
         
         public PlayingState()
         {
             this.Add(new SpriteGameObject("Background"));
 
             thePlayer = new Player();
-            
-            theBullet = new Bullet(thePlayer.Position);
             this.Add(thePlayer);
-            this.Add(theBullet);
 
+            for (int i = 0; i < _AmountOfEnemies; i++)
+            {
+                Enemies.Add(new Enemy());
+            }
+            
             
         }   
         public override void Reset()
@@ -36,6 +40,10 @@ namespace Centipede
             foreach (Bullet bullets in Bullets.Children)
             {
                 bullets.Reset();
+            }
+            foreach (Enemy Enemies in Enemies.Children)
+            {
+                Enemies.Reset();
             }
         }
 
@@ -58,21 +66,40 @@ namespace Centipede
             foreach (Bullet bullets in Bullets.Children)
             {
                 bullets.Update(gameTime);
-                if (!theBullet.isFired)
-                {
-                    theBullet.Position = thePlayer.Position;
-                }
 
                 if (bullets.offScreen)
                 {
                     bulletRemove.Add(bullets);
                 }
             }
+            List<Enemy> enemyRemove = new List<Enemy>();
+
+            foreach (Enemy Enemies in Enemies.Children)
+            {
+                Enemies.Update(gameTime);
+
+                foreach (Bullet BulletHit in Bullets.Children)
+                {
+                    if (BulletHit.CollidesWith(Enemies))
+                    {
+                        bulletRemove.Add(BulletHit);
+                        enemyRemove.Add(Enemies);
+                    }
+                }
+            }
+            foreach (Enemy enemy in enemyRemove)
+            {
+                Enemies.Remove(enemy);
+            }
             foreach (Bullet bullets in bulletRemove)
             {
                 Bullets.Remove(bullets);
             }
 
+            for (int i = Enemies.Children.Count; i < _AmountOfEnemies; i++)
+            {
+                Enemies.Add(new Enemy());
+            }
         }
 
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
@@ -83,6 +110,11 @@ namespace Centipede
             foreach (Bullet bullets in Bullets.Children)
             {
                 bullets.Draw(gameTime, spriteBatch);
+            }
+
+            foreach (Enemy Enemies in Enemies.Children)
+            {
+                Enemies.Draw(gameTime, spriteBatch);
             }
         }
 

@@ -12,13 +12,13 @@ namespace Centipede
     {
         public Enemy() : base("Enemy")
         {
-
+            Reset();
         }
 
         public override void Reset()
         {
-            position.X = GameEnvironment.Random.Next(0, Width);
-            position.Y = GameEnvironment.Random.Next(0 - 1000);
+            position.X = GameEnvironment.Random.Next(0, GameEnvironment.Screen.X - sprite.Width);
+            position.Y = GameEnvironment.Random.Next(-1000, 0);
 
             velocity.X = GameEnvironment.Random.Next(-3, 3);
             velocity.Y = GameEnvironment.Random.Next(1, 3);
@@ -26,13 +26,18 @@ namespace Centipede
 
         public override void Update(GameTime gameTime)
         {
-            base.Update(gameTime);
             if ((position.X > GameEnvironment.Screen.X - sprite.Width) || (position.X < 0))
             {
                 position.X -= velocity.X;
                 velocity.X = -velocity.X;
                 position.Y += velocity.Y;
             }
+            position.Y += velocity.Y;
+        }
+
+        public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
+        {
+            base.Draw(gameTime, spriteBatch);
         }
     }
 }
