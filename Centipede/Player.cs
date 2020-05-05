@@ -11,6 +11,7 @@ namespace Centipede
 {
     class Player : RotatingSpriteGameObject
     {
+        public int HEALTH = 3;
         public int SPEED = 5;
         public Player() : base("Player")
         {

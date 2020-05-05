@@ -11,22 +11,27 @@ namespace Centipede
 {
     class PlayingState : GameObjectList
     {
-
-        public const int _AmountOfEnemies = 20;
+        public int _scoreUp = 10;
+        public int _frameCounter = 0;
+        public const int _hpDown = 1;
+        public const int _amountOfEnemies = 20;
        // public List<Enemy> Enemies = new List<Enemy>();
         Player thePlayer;
-
+        Score score;
         GameObjectList Bullets = new GameObjectList();
         GameObjectList Enemies = new GameObjectList();
         
         public PlayingState()
         {
             this.Add(new SpriteGameObject("Background"));
-
+           
+            score = new Score();
             thePlayer = new Player();
+            
             this.Add(thePlayer);
+            this.Add(score);
 
-            for (int i = 0; i < _AmountOfEnemies; i++)
+            for (int i = 0; i < _amountOfEnemies; i++)
             {
                 Enemies.Add(new Enemy());
             }
@@ -82,6 +87,7 @@ namespace Centipede
                 {
                     if (BulletHit.CollidesWith(Enemies))
                     {
+                        score.getScore = score.getScore + _scoreUp;
                         bulletRemove.Add(BulletHit);
                         enemyRemove.Add(Enemies);
                     }
@@ -96,9 +102,24 @@ namespace Centipede
                 Bullets.Remove(bullets);
             }
 
-            for (int i = Enemies.Children.Count; i < _AmountOfEnemies; i++)
+            for (int i = Enemies.Children.Count; i < _amountOfEnemies; i++)
             {
                 Enemies.Add(new Enemy());
+            }
+            foreach (Enemy EnemyHit in Enemies.Children)
+            {
+                if (EnemyHit.CollidesWith(thePlayer))
+                {
+                    _frameCounter++;
+                    if(_frameCounter == 1) { 
+                    Console.WriteLine(thePlayer.HEALTH);
+                    thePlayer.HEALTH = thePlayer.HEALTH - _hpDown;
+                        if(_frameCounter == 120)
+                        {
+                            _frameCounter = 0;
+                        }
+                    }
+                }
             }
         }
 

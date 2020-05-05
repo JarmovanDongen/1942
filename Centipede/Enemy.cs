@@ -10,6 +10,8 @@ namespace Centipede
 {
     class Enemy : RotatingSpriteGameObject
     {
+        public bool offScreen;
+
         public Enemy() : base("Enemy")
         {
             Reset();
@@ -33,6 +35,11 @@ namespace Centipede
                 position.Y += velocity.Y;
             }
             position.Y += velocity.Y;
+
+            if (position.Y < GameEnvironment.Screen.Y + sprite.Height)
+            {
+                offScreen = true;
+            }
         }
 
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
