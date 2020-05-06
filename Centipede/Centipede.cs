@@ -6,6 +6,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.Xna.Framework.Media;
+using Microsoft.Xna.Framework.Audio;
+
 
 
 namespace Centipede
@@ -15,6 +18,7 @@ namespace Centipede
     /// </summary>
     public class Centipede : GameEnvironment
     {
+        Song song;
         /// <summary>
         /// LoadContent will be called once per game and is the place to load
         /// all of your content.
@@ -31,7 +35,11 @@ namespace Centipede
             GameStateManager.AddGameState("GameOver", new GameOverScreen());
 
             GameStateManager.SwitchTo("Start");
-           
+
+            this.song = Content.Load<Song>("BestSongEver");
+            MediaPlayer.Volume = 0.20f;
+            MediaPlayer.Play(song);
+            MediaPlayer.IsRepeating = true;
             // TODO: use this.Content to load your game content here
         }
         
